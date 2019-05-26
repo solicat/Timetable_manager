@@ -1,6 +1,6 @@
 
 public class Timetable {
-	private Course table[][];
+	public Course table[][];
 
 	public Timetable() {
 		int i, j;
@@ -40,7 +40,7 @@ public class Timetable {
 			j = 0;
 		else if (A.getHours().getDay().equals("Tue"))
 			j = 1;
-		else if (A.getHours().getDay().equals("Wen"))
+		else if (A.getHours().getDay().equals("Wed"))
 			j = 2;
 		else if (A.getHours().getDay().equals("Thu"))
 			j = 3;
