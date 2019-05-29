@@ -1,6 +1,6 @@
 
 public class Timetable {
-	public Course table[][];
+	private Course table[][];
 
 	public Timetable() {
 		int i, j;
@@ -54,6 +54,11 @@ public class Timetable {
 		
 		for(len = 0; len < A.getHours().classHours(); len++)
 			table[i + len][j] = A;
+	}
+	
+	public Course[][] getTimetable()
+	{
+		return table;
 	}
 
 }
