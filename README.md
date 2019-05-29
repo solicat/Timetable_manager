@@ -1,6 +1,6 @@
 # Timetable_manager
 
-##Reference
+## Reference
 
-GridBagLayout: <https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html>
+GridBagLayout: <https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html>  
 JLabel.setHorizontalAlignment: <https://docs.oracle.com/javase/tutorial/uiswing/components/label.html>
