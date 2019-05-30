@@ -1,6 +1,6 @@
 
 public class Timetable {
-	private Course table[][];
+	private static Course table[][];
 
 	public Timetable() {
 		int i, j;
@@ -33,7 +33,7 @@ public class Timetable {
 
 	}
 
-	public void setTimetable(Course A) {
+	public static void setTimetable(Course A) {
 		int i, j, len;
 
 		if (A.getHours().getDay().equals("Mon"))
@@ -56,7 +56,7 @@ public class Timetable {
 			table[i + len][j] = A;
 	}
 	
-	public Course[][] getTimetable()
+	public static Course[][] getTimetable()
 	{
 		return table;
 	}

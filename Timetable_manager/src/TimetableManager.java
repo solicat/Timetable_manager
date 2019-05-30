@@ -24,8 +24,9 @@ public class TimetableManager extends JFrame implements ActionListener {
 	private JTextField startTime;
 	private JTextField endTime;		
 
-	private Timetable TT1 = new Timetable();
-	private Course[][] TT = TT1.getTimetable();
+	private Timetable TT = new Timetable();
+	
+	Course[][] table = Timetable.getTimetable();
 	
 	JButton[][] course = new JButton[24][5];
 
@@ -40,9 +41,9 @@ public class TimetableManager extends JFrame implements ActionListener {
 		int i, j;
 
 		Course A = new Course("JAVA", "IT-5 355", "Mon", 900, 1030);
-		TT1.setTimetable(A);
+		Timetable.setTimetable(A);
 		Course B = new Course("DS", "IT-4 106", "Mon", 1330, 1700);
-		TT1.setTimetable(B);
+		Timetable.setTimetable(B);
 		
 		
 		setTitle("Timetable Manager");
@@ -85,8 +86,8 @@ public class TimetableManager extends JFrame implements ActionListener {
 		{
 			for(j = 0; j < 5; j++)
 			{
-				course[i][j] = new JButton("" + TT[i][j]);
-				course[i][j].addActionListener(this);
+				course[i][j] = new JButton("" + table[i][j]);
+				course[i][j].addActionListener(new CourseDetail(i, j));
 				timetable.add(course[i][j]);
 			}
 		}
@@ -188,7 +189,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 		add(inputpanel, BorderLayout.SOUTH);
 	}
 	
-
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String ct;
 		String cr;
@@ -204,23 +205,16 @@ public class TimetableManager extends JFrame implements ActionListener {
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
 
-			TT1.setTimetable(new Course(ct, cr, sday, st, et));
+			Timetable.setTimetable(new Course(ct, cr, sday, st, et));
 
 			for (i = 0; i < 24; i++) {
 				for (j = 0; j < 5; j++) {
-					course[i][j].setText("" + TT[i][j]);
+					course[i][j].setText("" + table[i][j]);
 					timetable.add(course[i][j]);
 				}
 			}
 
-			TT1.printTimetable();
-		}
-		
-		else if(!(e.getActionCommand().equals(" "))){
-			JFrame window = new JFrame("Aaa");
-			window.setSize(200, 200);
-			window.setVisible(true);
-			
+			TT.printTimetable();
 		}
 	}
 }
