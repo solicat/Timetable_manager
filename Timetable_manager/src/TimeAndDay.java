@@ -40,13 +40,6 @@ public class TimeAndDay {
 		this.endTime = endTime;
 	}
 
-	public int classHours() {
-		if ((endTime - startTime) % 100 == 0)
-			return ((endTime - startTime) / 100) * 2;
-		else
-			return (((endTime - startTime) / 100) * 2) + 1;
-	}
-
 	public String toString() {
 		return day + startTime + " ~ " + endTime;
 	}
