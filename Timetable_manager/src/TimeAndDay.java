@@ -15,7 +15,7 @@ public class TimeAndDay {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
-	
+
 	public String getDay() {
 		return day;
 	}
@@ -45,6 +45,10 @@ public class TimeAndDay {
 			return ((endTime - startTime) / 100) * 2;
 		else
 			return (((endTime - startTime) / 100) * 2) + 1;
+	}
+
+	public String toString() {
+		return day + startTime + " ~ " + endTime;
 	}
 
 }
