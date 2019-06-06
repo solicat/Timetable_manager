@@ -1,6 +1,6 @@
 
 public class Timetable {
-	private static Course table[][];
+	public static Course table[][];
 
 	public Timetable() {
 		int i, j;
@@ -13,7 +13,7 @@ public class Timetable {
 		}
 	}
 
-	public void printTimetable() {
+	public static void printTimetable() {
 		int i, j;
 
 		System.out.println("	Mon		Tue		Wen		Thu		Fri");

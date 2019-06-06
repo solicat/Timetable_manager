@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Course {
+public class Course implements Serializable{
 	private String courseTitle;
 	private String classRoom;
 	private TimeAndDay hours;
