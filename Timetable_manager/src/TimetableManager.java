@@ -19,20 +19,16 @@ public class TimetableManager extends JFrame implements ActionListener {
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 1000;
 
-	private JTextField courseTitle;
-	private JTextField classRoom;
-	private JTextField day;
-	private JTextField startTime;
-	private JTextField endTime;
+	
 	private Font timetableFont = new Font("Arial", Font.BOLD, 10);
 	
 	private Timetable TT = new Timetable();
 
-	Course[][] table = Timetable.getTimetable();
+	public static JButton[][] course = new JButton[24][5];
+	
+	public static boolean saveState = true;
 
-	JButton[][] course = new JButton[24][5];
-
-	JPanel timetable = new JPanel(new GridLayout(24, 5));
+	public static JPanel timetable = new JPanel(new GridLayout(24, 5));
 
 	public static void main(String[] args) {
 		TimetableManager newTimetable = new TimetableManager();
@@ -83,7 +79,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 
 		for (i = 0; i < 24; i++) {
 			for (j = 0; j < 5; j++) {
-				course[i][j] = new JButton("" + table[i][j]);
+				course[i][j] = new JButton("" + Timetable.table[i][j]);
 				course[i][j].addActionListener(new CourseDetail(i, j));
 				course[i][j].setFont(timetableFont);
 				timetable.add(course[i][j]);
@@ -136,84 +132,14 @@ public class TimetableManager extends JFrame implements ActionListener {
 
 		add(mainpanel, BorderLayout.CENTER);
 
-		JPanel inputpanel = new JPanel(new GridLayout(6, 1));
-
-		JPanel courseTitlePanel = new JPanel(new FlowLayout());
-		courseTitle = new JTextField(30);
-		courseTitle.setEditable(true);
-		courseTitlePanel.add(new JLabel("Course title"));
-		courseTitlePanel.add(courseTitle);
-		inputpanel.add(courseTitlePanel);
-
-		JPanel classRoomPanel = new JPanel(new FlowLayout());
-		classRoom = new JTextField(30);
-		classRoom.setEditable(true);
-		classRoomPanel.add(new JLabel("Classroom"));
-		classRoomPanel.add(classRoom);
-		inputpanel.add(classRoomPanel);
-
-		JPanel dayPanel = new JPanel(new FlowLayout());
-		day = new JTextField(30);
-		day.setText("Mon, Tue, Wed, Thu, Fri");
-		day.setEditable(true);
-		dayPanel.add(new JLabel("Day"));
-		dayPanel.add(day);
-		inputpanel.add(dayPanel);
-
-		JPanel startTimePanel = new JPanel(new FlowLayout());
-		startTime = new JTextField(30);
-		startTime.setText("HHMM");
-		startTime.setEditable(true);
-		startTimePanel.add(new JLabel("Start time"));
-		startTimePanel.add(startTime);
-		inputpanel.add(startTimePanel);
-
-		JPanel endTimePanel = new JPanel(new FlowLayout());
-		endTime = new JTextField(30);
-		endTime.setText("HHMM");
-		endTime.setEditable(true);
-		endTimePanel.add(new JLabel("Start time"));
-		endTimePanel.add(endTime);
-		inputpanel.add(endTimePanel);
-
-		JPanel inputpanelButton = new JPanel(new FlowLayout());
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(this);
-		inputpanelButton.add(addButton);
-		inputpanel.add(inputpanelButton);
-
-		add(inputpanel, BorderLayout.SOUTH);
+		JButton Add = new JButton("Add");
+		Add.addActionListener(new AddCourse());
+		
+		add(Add, BorderLayout.SOUTH);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String ct;
-		String cr;
-		String sday;
-		int st;
-		int et;
-		int i, j;
-		boolean check;
-
-		if (e.getActionCommand().equals("Add")) {
-			ct = courseTitle.getText();
-			cr = classRoom.getText();
-			sday = day.getText();
-			st = Integer.parseInt(startTime.getText());
-			et = Integer.parseInt(endTime.getText());
-
-			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
-
-			if (check) {
-				for (i = 0; i < 24; i++) {
-					for (j = 0; j < 5; j++) {
-						course[i][j].setText("" + table[i][j]);
-						timetable.add(course[i][j]);
-					}
-				}
-			}
-
-			TT.printTimetable();
-		}
+		
 	}
 }
