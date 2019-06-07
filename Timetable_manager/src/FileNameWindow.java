@@ -60,7 +60,11 @@ public class FileNameWindow implements ActionListener {
 
 			if (SaveCheck.command.equals("YES")) {
 				SaveCheck.command = "";
-				FileNameWindow windowtemp = new FileNameWindow(SaveCheck.state);
+				if (!SaveCheck.state.equals("New")) {
+					FileNameWindow windowtemp = new FileNameWindow(SaveCheck.state);
+				} else {
+					FileIO.doFileIO("New");
+				}
 			}
 		}
 	}
