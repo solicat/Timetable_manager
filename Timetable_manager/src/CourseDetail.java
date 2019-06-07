@@ -21,7 +21,7 @@ public class CourseDetail implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (!(e.getActionCommand().equals(" "))) {
+		if (!(e.getActionCommand().equals("<html><br /></html>"))) {
 			JFrame window = new JFrame(e.getActionCommand());
 			window.setLayout(new BorderLayout());
 
