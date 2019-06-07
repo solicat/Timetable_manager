@@ -19,7 +19,7 @@ public class File implements ActionListener {
 
 		else if (command.equals("Open")) {
 			if (TimetableManager.saveState == true) {
-				FileIO.doFileIO("Open");
+				FileNameWindow ft = new FileNameWindow("Open");
 			} else {
 				SaveCheck t = new SaveCheck("Open");
 				t.setVisible(true);
@@ -27,7 +27,7 @@ public class File implements ActionListener {
 		}
 
 		else if (command.equals("Save")) {
-			FileIO.doFileIO("Save");
+			FileNameWindow ft = new FileNameWindow("Save");
 		}
 
 	}

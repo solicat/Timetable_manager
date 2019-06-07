@@ -10,11 +10,13 @@ import javax.swing.JPanel;
 
 public class SaveCheck extends JFrame implements ActionListener {
 
-	private String state;
+	public static String state;
+	public static String command;
 
 	public SaveCheck(String state) {
-		this.state = state;
+		SaveCheck.state = state;
 
+		setTitle("Save?");
 		setLayout(new BorderLayout());
 
 		JLabel save = new JLabel("Do you want to save?");
@@ -41,14 +43,16 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-
+		SaveCheck.command = e.getActionCommand();
 		if (command.equals("YES")) {
-			FileIO.doFileIO("Save");
-			FileIO.doFileIO(state);
+			FileNameWindow temp = new FileNameWindow("Save");
 			dispose();
 		} else if (command.equals("NO")) {
-			FileIO.doFileIO(state);
+			if (state.equals("New")) {
+				FileIO.doFileIO(state);
+			} else {
+				FileNameWindow temp = new FileNameWindow(state); // Open
+			}
 			dispose();
 		} else if (command.equals("CANCEL")) {
 			dispose();
