@@ -1,6 +1,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,7 +24,8 @@ public class TimetableManager extends JFrame implements ActionListener {
 	private JTextField day;
 	private JTextField startTime;
 	private JTextField endTime;
-
+	private Font timetableFont = new Font("Arial", Font.BOLD, 10);
+	
 	private Timetable TT = new Timetable();
 
 	Course[][] table = Timetable.getTimetable();
@@ -83,6 +85,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 			for (j = 0; j < 5; j++) {
 				course[i][j] = new JButton("" + table[i][j]);
 				course[i][j].addActionListener(new CourseDetail(i, j));
+				course[i][j].setFont(timetableFont);
 				timetable.add(course[i][j]);
 			}
 		}
