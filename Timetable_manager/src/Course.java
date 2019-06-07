@@ -1,6 +1,8 @@
+
+import java.io.Serializable;
 import java.util.StringTokenizer;
 
-public class Course {
+public class Course implements Serializable{
 	private String courseTitle;
 	private String classRoom;
 	private TimeAndDay hours;

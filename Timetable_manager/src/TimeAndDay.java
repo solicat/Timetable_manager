@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class TimeAndDay {
+public class TimeAndDay implements Serializable {
 	private String day;
 	private int startTime;
 	private int endTime;
