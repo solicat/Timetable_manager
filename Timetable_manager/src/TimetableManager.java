@@ -11,12 +11,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class TimetableManager extends JFrame implements ActionListener {
 
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 1100;
 	public static final int HEIGHT = 1000;
 
 	private JTextField courseTitle;
@@ -24,13 +27,14 @@ public class TimetableManager extends JFrame implements ActionListener {
 	private JTextField day;
 	private JTextField startTime;
 	private JTextField endTime;
+
 	private Font timetableFont = new Font("Arial", Font.BOLD, 10);
 	
 	private Timetable TT = new Timetable();
 
-	Course[][] table = Timetable.getTimetable();
-
-	JButton[][] course = new JButton[24][5];
+	public static JButton[][] course = new JButton[24][5];
+	
+	public static boolean saveState = true;
 
 	JPanel timetable = new JPanel(new GridLayout(24, 5));
 
@@ -42,16 +46,12 @@ public class TimetableManager extends JFrame implements ActionListener {
 	public TimetableManager() {
 		int i, j;
 
-		Course A = new Course("JAVA", "IT-5 355", "Mon", 900, 1030);
-		Timetable.setTimetable(A);
-		Course B = new Course("DS", "IT-4 106", "Mon", 1330, 1700);
-		Timetable.setTimetable(B);
-
 		setTitle("Timetable Manager");
 		setSize(WIDTH, HEIGHT);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		//Timetable panel
 		JPanel mainpanel = new JPanel(new GridBagLayout());
 		GridBagConstraints[] mpConstraints = new GridBagConstraints[6];
 		for (i = 0; i < 2; i++) {
@@ -83,7 +83,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 
 		for (i = 0; i < 24; i++) {
 			for (j = 0; j < 5; j++) {
-				course[i][j] = new JButton("" + table[i][j]);
+				course[i][j] = new JButton("" + Timetable.table[i][j]);
 				course[i][j].addActionListener(new CourseDetail(i, j));
 				course[i][j].setFont(timetableFont);
 				timetable.add(course[i][j]);
@@ -136,6 +136,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 
 		add(mainpanel, BorderLayout.CENTER);
 
+		//Input panel
 		JPanel inputpanel = new JPanel(new GridLayout(6, 1));
 
 		JPanel courseTitlePanel = new JPanel(new FlowLayout());
@@ -183,6 +184,24 @@ public class TimetableManager extends JFrame implements ActionListener {
 		inputpanel.add(inputpanelButton);
 
 		add(inputpanel, BorderLayout.SOUTH);
+		
+		//Menu bar
+		JMenu file = new JMenu("File");
+		JMenuItem New = new JMenuItem("New");		
+		New.addActionListener(new File());
+		file.add(New);
+		
+		JMenuItem Open = new JMenuItem("Open");
+		Open.addActionListener(new File());
+		file.add(Open);
+		
+		JMenuItem Save = new JMenuItem("Save");
+		Save.addActionListener(new File());
+		file.add(Save);
+		
+		JMenuBar bar = new JMenuBar();
+		bar.add(file);
+		setJMenuBar(bar);		
 	}
 
 	@Override
@@ -207,13 +226,16 @@ public class TimetableManager extends JFrame implements ActionListener {
 			if (check) {
 				for (i = 0; i < 24; i++) {
 					for (j = 0; j < 5; j++) {
-						course[i][j].setText("" + table[i][j]);
+						course[i][j].setText("" + Timetable.table[i][j]);
 						timetable.add(course[i][j]);
 					}
 				}
-			}
 
-			TT.printTimetable();
+				saveState = false;
+			}
+			
+
+			Timetable.printTimetable();
 		}
 	}
 }
