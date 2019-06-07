@@ -31,7 +31,7 @@ public class TimetableManager extends JFrame implements ActionListener {
 
 	public static JButton[][] course = new JButton[24][5];
 	
-	public static boolean saveState = false;
+	public static boolean saveState = true;
 
 	JPanel timetable = new JPanel(new GridLayout(24, 5));
 
