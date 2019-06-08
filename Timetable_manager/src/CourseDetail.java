@@ -22,7 +22,12 @@ public class CourseDetail implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (!(e.getActionCommand().equals("<html><br /></html>"))) {
-			JFrame window = new JFrame(e.getActionCommand());
+			int timecheck;
+			String timeString;
+			String timeToString = "";
+
+			JFrame window = new JFrame(
+					Timetable.table[time][day].getCourseTitle() + " " + Timetable.table[time][day].getClassRoom());
 			window.setLayout(new BorderLayout());
 
 			JPanel data = new JPanel();
@@ -30,36 +35,64 @@ public class CourseDetail implements ActionListener {
 
 			JPanel courseTitlePanel = new JPanel(new FlowLayout());
 			JLabel courseTitleLabel = new JLabel("Course title: ");
-			JLabel courseTitle = new JLabel(
-					Timetable.table[time][day].getCourseTitle());
+			JLabel courseTitle = new JLabel(Timetable.table[time][day].getCourseTitle());
 			courseTitlePanel.add(courseTitleLabel);
 			courseTitlePanel.add(courseTitle);
 
 			JPanel classRoomPanel = new JPanel(new FlowLayout());
 			JLabel classRoomLabel = new JLabel("Classroom: ");
-			JLabel classRoom = new JLabel(
-					Timetable.table[time][day].getClassRoom());
+			JLabel classRoom = new JLabel(Timetable.table[time][day].getClassRoom());
 			classRoomPanel.add(classRoomLabel);
 			classRoomPanel.add(classRoom);
 
 			JPanel ddayPanel = new JPanel(new FlowLayout());
 			JLabel ddayLabel = new JLabel("Day: ");
-			JLabel dday = new JLabel(
-					Timetable.table[time][day].getHours().getDay());
+			JLabel dday = new JLabel(Timetable.table[time][day].getHours().getDay());
 			ddayPanel.add(ddayLabel);
 			ddayPanel.add(dday);
 
 			JPanel startTimePanel = new JPanel(new FlowLayout());
 			JLabel startTimeLabel = new JLabel("Start time: ");
-			JLabel startTime = new JLabel(
-					Timetable.table[time][day].getHours().getStartTime() + "");
+			timecheck = Timetable.table[time][day].getHours().getStartTime();
+			timeString = Integer.toString(timecheck);
+			if (timecheck < 1000) {
+				timeToString += "0";
+				timeToString += timeString.charAt(0);
+			} else {
+				timeToString += timeString.substring(0, 2);
+			}
+			
+			timeToString += ":";
+			
+			if (timecheck < 1000) {				
+				timeToString += timeString.substring(1);
+			} else {
+				timeToString += timeString.substring(2);
+			}
+			JLabel startTime = new JLabel(timeToString);
 			startTimePanel.add(startTimeLabel);
 			startTimePanel.add(startTime);
 
+			timeToString = "";
 			JPanel endTimePanel = new JPanel(new FlowLayout());
 			JLabel endTimeLabel = new JLabel("End time: ");
-			JLabel endTime = new JLabel(
-					Timetable.table[time][day].getHours().getEndTime() + "");
+			timecheck = Timetable.table[time][day].getHours().getEndTime();
+			timeString = Integer.toString(timecheck);
+			if (timecheck < 1000) {
+				timeToString += "0";
+				timeToString += timeString.charAt(0);
+			} else {
+				timeToString += timeString.substring(0, 2);
+			}
+			
+			timeToString += ":";
+			
+			if (timecheck < 1000) {				
+				timeToString += timeString.substring(1);
+			} else {
+				timeToString += timeString.substring(2);
+			}
+			JLabel endTime = new JLabel(timeToString);
 			endTimePanel.add(endTimeLabel);
 			endTimePanel.add(endTime);
 
