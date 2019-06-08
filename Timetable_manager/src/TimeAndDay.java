@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class TimeAndDay {
+public class TimeAndDay implements Serializable {
 	private String day;
 	private int startTime;
 	private int endTime;
@@ -38,13 +39,6 @@ public class TimeAndDay {
 
 	public void setEndTime(int endTime) {
 		this.endTime = endTime;
-	}
-
-	public int classHours() {
-		if ((endTime - startTime) % 100 == 0)
-			return ((endTime - startTime) / 100) * 2;
-		else
-			return (((endTime - startTime) / 100) * 2) + 1;
 	}
 
 	public String toString() {
