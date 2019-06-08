@@ -13,13 +13,14 @@ import javax.swing.JTextField;
 public class FileNameWindow implements ActionListener {
 
 	private JTextField fileName;
+	private JLabel existsState;
 	private JFrame window;
 
 	public FileNameWindow(String state) {
 		window = new JFrame();
 		window.setTitle(state);
 		window.setSize(300, 200);
-		window.setLayout(new GridLayout(2, 1));
+		window.setLayout(new GridLayout(3, 1));
 
 		JPanel file = new JPanel();
 		file.setLayout(new FlowLayout());
@@ -32,6 +33,11 @@ public class FileNameWindow implements ActionListener {
 		file.add(fileName);
 
 		window.add(file);
+
+		JPanel existsStatePanel = new JPanel(new FlowLayout());
+		existsState = new JLabel("");
+		existsStatePanel.add(existsState);
+		window.add(existsStatePanel);
 
 		JPanel runpanel = new JPanel(new FlowLayout());
 		JButton run = new JButton(state);
@@ -51,21 +57,30 @@ public class FileNameWindow implements ActionListener {
 				FileIO.file = temp.getName();
 				FileIO.doFileIO("Open");
 				window.dispose();
+			} else {
+				existsState.setText("No File!");
 			}
 		}
 		if (e.getActionCommand().equals("Save")) {
-			FileIO.file = temp.getName();
-			FileIO.doFileIO("Save");
-			window.dispose();
+			if (!temp.exists()) {
+				FileIO.file = temp.getName();
+				FileIO.doFileIO("Save");
+				window.dispose();
 
-			if (SaveCheck.command.equals("YES")) {
-				SaveCheck.command = "";
-				if (!SaveCheck.state.equals("New")) {
-					FileNameWindow windowtemp = new FileNameWindow(SaveCheck.state);
-				} else {
-					FileIO.doFileIO("New");
+				if (SaveCheck.command.equals("YES")) {
+					SaveCheck.command = "";
+					if (!SaveCheck.state.equals("New")) {
+						FileNameWindow windowtemp = new FileNameWindow(SaveCheck.state);
+					} else {
+						FileIO.doFileIO("New");
+					}
 				}
+			} else {
+				FileIO.file = temp.getName();
+				window.dispose();
+				OverwriteCheck overwritetemp = new OverwriteCheck();
 			}
+
 		}
 	}
 }
