@@ -58,6 +58,7 @@ public class FileNameWindow implements ActionListener {
 				FileIO.doFileIO("Open");
 				window.dispose();
 			} else {
+				fileName.setBackground(SetColor.warningColor);
 				existsState.setText("No File!");
 			}
 		}

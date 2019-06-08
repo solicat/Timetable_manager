@@ -1,9 +1,11 @@
 import java.awt.Color;
 
 public class SetColor {
-	public static Color defaultColor = new Color(0xE2EFDE);
+	public static Color defaultColor = new Color(0xE2EFEE);
+	public static Color warningColor = new Color(0xF19CA2);
+	public static Color textfieldColor = new Color(0xFFFFFF);
 	private static Color[] color = { new Color(0xA3B5C1), new Color(0xACCACC), new Color(0xDAE4CC), new Color(0xF0ECE1),
-			new Color(0xF4E0D9), new Color(0xBFE9FF), new Color(0xFFE9CD), new Color(0xF8D7D0), new Color(0xF19CA2) };
+			new Color(0xF4E0D9), new Color(0xBFE9FF), new Color(0xFFE9CD), new Color(0xF8D7D0) };
 
 	public static void setButtonColor() {
 		String courseTitle[] = new String[120];

@@ -78,7 +78,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 		int st;
 		int et;
 		int i, j;
-		boolean check;
+		int check;
 
 		if (e.getActionCommand().equals("Add")) {
 			ct = courseTitle.getText();
@@ -87,9 +87,13 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
 
+			day.setBackground(SetColor.textfieldColor);
+			startTime.setBackground(SetColor.textfieldColor);
+			endTime.setBackground(SetColor.textfieldColor);
+
 			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
 
-			if (check) {
+			if (check == 0) {
 				for (i = 0; i < 24; i++) {
 					for (j = 0; j < 5; j++) {
 						TimetableManager.course[i][j].setText("" + Timetable.table[i][j]);
@@ -97,10 +101,16 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 					}
 				}
 				TimetableManager.saveState = false;
+			} else if (check == 1) {
+				day.setBackground(SetColor.warningColor);
+			} else if (check == 2) {
+				startTime.setBackground(SetColor.warningColor);
+			} else if (check == 3) {
+				endTime.setBackground(SetColor.warningColor);
 			}
 
 			SetColor.setButtonColor();
-			//Timetable.printTimetable();  //For test
+			// Timetable.printTimetable(); //For test
 		}
 
 	}
