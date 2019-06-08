@@ -55,15 +55,24 @@ public class Timetable {
 		startTime = A.getHours().getStartTime();
 		endTime = A.getHours().getEndTime();
 
-		if (A.getHours().getStartTime() < 900)
+		if (A.getHours().getStartTime() < 900 && A.getHours().getStartTime() >= 0)
 			startTime = 900;
-		if (A.getHours().getEndTime() > 2100)
+		else if(A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
+			return 2;
+		
+		if (A.getHours().getEndTime() > 2100 && A.getHours().getEndTime() < 2400)
 			endTime = 2100;
+		else if(A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
+			return 3;
 
 		if (A.getHours().getStartTime() % 100 > 59)
 			return 2;
 		if (A.getHours().getEndTime() % 100 > 59)
 			return 3;
+		
+		if(startTime > endTime)
+			return 2;
+
 
 		i = (startTime / 100 - 9) * 2;
 
