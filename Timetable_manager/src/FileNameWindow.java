@@ -51,6 +51,8 @@ public class FileNameWindow implements ActionListener {
 				FileIO.file = temp.getName();
 				FileIO.doFileIO("Open");
 				window.dispose();
+			} else {
+				fileName.setBackground(SetColor.warningColor);
 			}
 		}
 		if (e.getActionCommand().equals("Save")) {
