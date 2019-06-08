@@ -72,7 +72,7 @@ public class CourseDetail implements ActionListener {
 					starttimeToString = "";
 					endtimeToString = "";
 
-					starttimecheck = Timetable.table[time][day].getHours().getStartTime();
+					starttimecheck = Timetable.table[j][i].getHours().getStartTime();
 					starttimeString = Integer.toString(starttimecheck);
 					if (starttimecheck < 1000) {
 						starttimeToString += "0";
@@ -89,7 +89,7 @@ public class CourseDetail implements ActionListener {
 						starttimeToString += starttimeString.substring(2);
 					}
 
-					endtimecheck = Timetable.table[time][day].getHours().getEndTime();
+					endtimecheck = Timetable.table[j][i].getHours().getEndTime();
 					endtimeString = Integer.toString(endtimecheck);
 					if (endtimecheck < 1000) {
 						endtimeToString += "0";
