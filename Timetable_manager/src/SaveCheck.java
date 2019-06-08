@@ -43,7 +43,7 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		SaveCheck.command = e.getActionCommand();
+		command = e.getActionCommand();
 		if (command.equals("YES")) {
 			FileNameWindow temp = new FileNameWindow("Save");
 			dispose();
