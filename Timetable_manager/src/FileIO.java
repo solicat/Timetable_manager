@@ -23,6 +23,8 @@ public class FileIO {
 			}
 
 			TimetableManager.saveState = true;
+			
+			SetColor.setDefaultColor();
 		}
 
 		else if (state.equals("Open")) {
@@ -52,6 +54,8 @@ public class FileIO {
 				inputStream.close();
 
 				TimetableManager.saveState = true;
+
+				SetColor.setButtonColor();
 
 			} catch (FileNotFoundException e1) {
 				System.out.println("FileNotFoundException");

@@ -99,7 +99,8 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 				TimetableManager.saveState = false;
 			}
 
-			Timetable.printTimetable();
+			SetColor.setButtonColor();
+			//Timetable.printTimetable();  //For test
 		}
 
 	}
