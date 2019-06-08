@@ -76,6 +76,7 @@ public class TimetableManager extends JFrame {
 				course[i][j] = new JButton("" + Timetable.table[i][j]);
 				course[i][j].addActionListener(new CourseDetail(i, j));
 				course[i][j].setFont(timetableFont);
+				course[i][j].setBackground(SetColor.defaultColor);
 				timetable.add(course[i][j]);
 			}
 		}

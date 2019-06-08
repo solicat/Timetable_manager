@@ -21,13 +21,27 @@ public class CourseDetail implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		int i, j, k;
+		String course = Timetable.table[time][day].getCourseTitle();
+		String currentCourse;
+		String saveDate[];
+		String currentDate;
+		int top;
+		boolean check;
+
 		if (!(e.getActionCommand().equals("<html><br /></html>"))) {
-			int timecheck;
-			String timeString;
-			String timeToString = "";
+			int starttimecheck;
+			int endtimecheck;
+			String starttimeString;
+			String starttimeToString = "";
+			String endtimeString;
+			String endtimeToString = "";
 
 			JFrame window = new JFrame(
 					Timetable.table[time][day].getCourseTitle() + " " + Timetable.table[time][day].getClassRoom());
+
+			saveDate = new String[120];
+			top = 0;
 			window.setLayout(new BorderLayout());
 
 			JPanel data = new JPanel();
@@ -45,62 +59,75 @@ public class CourseDetail implements ActionListener {
 			classRoomPanel.add(classRoomLabel);
 			classRoomPanel.add(classRoom);
 
-			JPanel ddayPanel = new JPanel(new FlowLayout());
-			JLabel ddayLabel = new JLabel("Day: ");
-			JLabel dday = new JLabel(Timetable.table[time][day].getHours().getDay());
-			ddayPanel.add(ddayLabel);
-			ddayPanel.add(dday);
-
-			JPanel startTimePanel = new JPanel(new FlowLayout());
-			JLabel startTimeLabel = new JLabel("Start time: ");
-			timecheck = Timetable.table[time][day].getHours().getStartTime();
-			timeString = Integer.toString(timecheck);
-			if (timecheck < 1000) {
-				timeToString += "0";
-				timeToString += timeString.charAt(0);
-			} else {
-				timeToString += timeString.substring(0, 2);
-			}
-			
-			timeToString += ":";
-			
-			if (timecheck < 1000) {				
-				timeToString += timeString.substring(1);
-			} else {
-				timeToString += timeString.substring(2);
-			}
-			JLabel startTime = new JLabel(timeToString);
-			startTimePanel.add(startTimeLabel);
-			startTimePanel.add(startTime);
-
-			timeToString = "";
-			JPanel endTimePanel = new JPanel(new FlowLayout());
-			JLabel endTimeLabel = new JLabel("End time: ");
-			timecheck = Timetable.table[time][day].getHours().getEndTime();
-			timeString = Integer.toString(timecheck);
-			if (timecheck < 1000) {
-				timeToString += "0";
-				timeToString += timeString.charAt(0);
-			} else {
-				timeToString += timeString.substring(0, 2);
-			}
-			
-			timeToString += ":";
-			
-			if (timecheck < 1000) {				
-				timeToString += timeString.substring(1);
-			} else {
-				timeToString += timeString.substring(2);
-			}
-			JLabel endTime = new JLabel(timeToString);
-			endTimePanel.add(endTimeLabel);
-			endTimePanel.add(endTime);
+			JPanel timePanel = new JPanel(new FlowLayout());
+			JLabel timeLabel = new JLabel("Time: ");
+			timePanel.add(timeLabel);
 
 			data.add(courseTitlePanel);
 			data.add(classRoomPanel);
-			data.add(ddayPanel);
-			data.add(startTimePanel);
-			data.add(endTimePanel);
+			data.add(timePanel);
+
+			for (i = 0; i < 5; i++) { // Row direction
+				for (j = 0; j < 24; j++) {
+					starttimeToString = "";
+					endtimeToString = "";
+
+					starttimecheck = Timetable.table[time][day].getHours().getStartTime();
+					starttimeString = Integer.toString(starttimecheck);
+					if (starttimecheck < 1000) {
+						starttimeToString += "0";
+						starttimeToString += starttimeString.charAt(0);
+					} else {
+						starttimeToString += starttimeString.substring(0, 2);
+					}
+
+					starttimeToString += ":";
+
+					if (starttimecheck < 1000) {
+						starttimeToString += starttimeString.substring(1);
+					} else {
+						starttimeToString += starttimeString.substring(2);
+					}
+
+					endtimecheck = Timetable.table[time][day].getHours().getEndTime();
+					endtimeString = Integer.toString(endtimecheck);
+					if (endtimecheck < 1000) {
+						endtimeToString += "0";
+						endtimeToString += endtimeString.charAt(0);
+					} else {
+						endtimeToString += endtimeString.substring(0, 2);
+					}
+
+					endtimeToString += ":";
+
+					if (endtimecheck < 1000) {
+						endtimeToString += endtimeString.substring(1);
+					} else {
+						endtimeToString += endtimeString.substring(2);
+					}
+
+					currentDate = Timetable.table[j][i].getHours().getDay() + ", " + starttimeToString + " ~ "
+							+ endtimeToString;
+					currentCourse = Timetable.table[j][i].getCourseTitle();
+
+					check = true;
+
+					for (k = 0; k < top; k++) {
+						if (saveDate[k].equals(currentDate)) {
+							check = false;
+							break;
+						}
+					}
+
+					if (!saveDate.equals(currentDate) && currentCourse.equals(course) && check) {
+						JPanel dayPanel = new JPanel(new FlowLayout());
+						JLabel dayLabel = new JLabel(currentDate);
+						dayPanel.add(dayLabel);
+						data.add(dayPanel);
+						saveDate[top++] = currentDate;
+					}
+				}
+			}
 
 			window.add(data, BorderLayout.CENTER);
 			window.setSize(500, 200);
