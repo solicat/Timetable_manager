@@ -157,12 +157,17 @@ public class TimetableManager extends JFrame {
 		edit.add(addCourse);
 		
 		JMenu option = new JMenu("Option");
+		option.setMnemonic(KeyEvent.VK_O);
 		JMenu theme = new JMenu("Theme");
-		JMenuItem theme0 = new JMenuItem("Pastel");
+		theme.setMnemonic(KeyEvent.VK_T);
+		JMenuItem theme0 = new JMenuItem("Pastel", KeyEvent.VK_P);
+		theme0.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
 		theme0.addActionListener(new SetColor());
-		JMenuItem theme1 = new JMenuItem("Green Blue");
+		JMenuItem theme1 = new JMenuItem("Green Blue", KeyEvent.VK_G);
+		theme1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
 		theme1.addActionListener(new SetColor());
-		JMenuItem theme2 = new JMenuItem("Red Purple");
+		JMenuItem theme2 = new JMenuItem("Red Purple", KeyEvent.VK_R);
+		theme2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.SHIFT_MASK));
 		theme2.addActionListener(new SetColor());
 				
 		theme.add(theme0);
