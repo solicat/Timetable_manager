@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,6 +64,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 
 		JPanel inputpanelButton = new JPanel(new FlowLayout());
 		JButton addButton = new JButton("Add");
+		addButton.setMnemonic(KeyEvent.VK_D);
 		addButton.addActionListener(this);
 		inputpanelButton.add(addButton);
 		inputpanel.add(inputpanelButton);

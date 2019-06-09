@@ -67,7 +67,7 @@ public class CourseDetail implements ActionListener {
 			data.add(classRoomPanel);
 			data.add(timePanel);
 
-			for (i = 0; i < 5; i++) { // Row direction
+			for (i = 0; i < 5; i++) { // Column direction
 				for (j = 0; j < 24; j++) {
 					starttimeToString = "";
 					endtimeToString = "";
