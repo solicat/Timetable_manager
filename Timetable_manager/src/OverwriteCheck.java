@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,8 +24,10 @@ public class OverwriteCheck implements ActionListener{
 		
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		JButton yes = new JButton("YES");
+		yes.setMnemonic(KeyEvent.VK_Y);
 		yes.addActionListener(this);
 		JButton no = new JButton("NO");
+		no.setMnemonic(KeyEvent.VK_N);
 		no.addActionListener(this);
 		buttonPanel.add(yes);
 		buttonPanel.add(no);

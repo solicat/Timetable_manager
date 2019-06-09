@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -41,6 +42,10 @@ public class FileNameWindow implements ActionListener {
 
 		JPanel runpanel = new JPanel(new FlowLayout());
 		JButton run = new JButton(state);
+		if (state.equals("Open"))
+			run.setMnemonic(KeyEvent.VK_O);
+		else if (state.equals("Save"))
+			run.setMnemonic(KeyEvent.VK_S);
 		run.addActionListener(this);
 		runpanel.add(run);
 
@@ -63,7 +68,9 @@ public class FileNameWindow implements ActionListener {
 			}
 		}
 		if (e.getActionCommand().equals("Save")) {
-			if (!temp.exists()) {
+			if (temp.getName().equals("")) {
+				fileName.setBackground(SetColor.warningColor);
+			} else if (!temp.exists()) {
 				FileIO.file = temp.getName();
 				FileIO.doFileIO("Save");
 				window.dispose();

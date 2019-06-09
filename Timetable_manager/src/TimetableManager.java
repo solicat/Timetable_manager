@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class TimetableManager extends JFrame {
 
@@ -129,20 +132,26 @@ public class TimetableManager extends JFrame {
 
 		// Menu bar
 		JMenu file = new JMenu("File");
-		JMenuItem New = new JMenuItem("New");
+		file.setMnemonic(KeyEvent.VK_F);
+		JMenuItem New = new JMenuItem("New", KeyEvent.VK_N);
+		New.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		New.addActionListener(new File());
 		file.add(New);
 
-		JMenuItem Open = new JMenuItem("Open");
+		JMenuItem Open = new JMenuItem("Open", KeyEvent.VK_O);
+		Open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		Open.addActionListener(new File());
 		file.add(Open);
 
-		JMenuItem Save = new JMenuItem("Save");
+		JMenuItem Save = new JMenuItem("Save", KeyEvent.VK_S);
+		Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		Save.addActionListener(new File());
 		file.add(Save);
 
 		JMenu edit = new JMenu("Edit");
-		JMenuItem addCourse = new JMenuItem("Add Course");
+		edit.setMnemonic(KeyEvent.VK_E);
+		JMenuItem addCourse = new JMenuItem("Add Course", KeyEvent.VK_D);
+		addCourse.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		addCourse.addActionListener(new AddCourse());
 		edit.add(addCourse);
 
