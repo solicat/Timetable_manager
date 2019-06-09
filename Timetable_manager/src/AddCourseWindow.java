@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,6 +64,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 
 		JPanel inputpanelButton = new JPanel(new FlowLayout());
 		JButton addButton = new JButton("Add");
+		addButton.setMnemonic(KeyEvent.VK_D);
 		addButton.addActionListener(this);
 		inputpanelButton.add(addButton);
 		inputpanel.add(inputpanelButton);
@@ -78,7 +80,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 		int st;
 		int et;
 		int i, j;
-		boolean check;
+		int check;
 
 		if (e.getActionCommand().equals("Add")) {
 			ct = courseTitle.getText();
@@ -87,9 +89,13 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
 
+			day.setBackground(SetColor.textfieldColor);
+			startTime.setBackground(SetColor.textfieldColor);
+			endTime.setBackground(SetColor.textfieldColor);
+
 			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
 
-			if (check) {
+			if (check == 0) {
 				for (i = 0; i < 24; i++) {
 					for (j = 0; j < 5; j++) {
 						TimetableManager.course[i][j].setText("" + Timetable.table[i][j]);
@@ -97,9 +103,16 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 					}
 				}
 				TimetableManager.saveState = false;
+			} else if (check == 1) {
+				day.setBackground(SetColor.warningColor);
+			} else if (check == 2) {
+				startTime.setBackground(SetColor.warningColor);
+			} else if (check == 3) {
+				endTime.setBackground(SetColor.warningColor);
 			}
 
-			Timetable.printTimetable();
+			SetColor.setButtonColor();
+			// Timetable.printTimetable(); //For test
 		}
 
 	}

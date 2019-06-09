@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,10 +27,13 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 		JPanel checkButton = new JPanel(new FlowLayout());
 		JButton yes = new JButton("YES");
+		yes.setMnemonic(KeyEvent.VK_Y);
 		yes.addActionListener(this);
 		JButton no = new JButton("NO");
+		no.setMnemonic(KeyEvent.VK_N);
 		no.addActionListener(this);
 		JButton cancel = new JButton("CANCEL");
+		cancel.setMnemonic(KeyEvent.VK_C);
 		cancel.addActionListener(this);
 
 		checkButton.add(yes);
@@ -43,7 +47,7 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		SaveCheck.command = e.getActionCommand();
+		command = e.getActionCommand();
 		if (command.equals("YES")) {
 			FileNameWindow temp = new FileNameWindow("Save");
 			dispose();

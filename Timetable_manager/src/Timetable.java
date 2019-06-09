@@ -33,7 +33,7 @@ public class Timetable {
 
 	}
 
-	public static boolean setTimetable(Course A) {
+	public static int setTimetable(Course A) {
 		int i, j, len;
 		int startTime;
 		int endTime;
@@ -50,20 +50,29 @@ public class Timetable {
 		else if (A.getHours().getDay().equals("Fri"))
 			j = 4;
 		else
-			return false;
+			return 1;
 
 		startTime = A.getHours().getStartTime();
 		endTime = A.getHours().getEndTime();
 
-		if (A.getHours().getStartTime() < 900)
+		if (A.getHours().getStartTime() < 900 && A.getHours().getStartTime() >= 0)
 			startTime = 900;
-		if (A.getHours().getEndTime() > 2100)
+		else if(A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
+			return 2;
+		
+		if (A.getHours().getEndTime() > 2100 && A.getHours().getEndTime() < 2400)
 			endTime = 2100;
+		else if(A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
+			return 3;
 
 		if (A.getHours().getStartTime() % 100 > 59)
-			return false;
+			return 2;
 		if (A.getHours().getEndTime() % 100 > 59)
-			return false;
+			return 3;
+		
+		if(startTime > endTime)
+			return 2;
+
 
 		i = (startTime / 100 - 9) * 2;
 
@@ -78,7 +87,7 @@ public class Timetable {
 		for (len = 0; len < hours; len++)
 			table[i + len][j] = A;
 
-		return true;
+		return 0;
 	}
 
 	public static Course[][] getTimetable() {
