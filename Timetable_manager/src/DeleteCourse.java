@@ -47,7 +47,9 @@ public class DeleteCourse implements ActionListener {
 				TimetableManager.course[i][j].setText("" + Timetable.table[i][j]);
 			}
 		}
-
+		
+		SetColor.setDefaultColor();
+		SetColor.setButtonColor();
 	}
 
 }
