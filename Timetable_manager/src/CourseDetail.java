@@ -30,12 +30,20 @@ public class CourseDetail implements ActionListener {
 		boolean check;
 
 		if (!(e.getActionCommand().equals("<html><br /></html>"))) {
+			int starttimecheck;
+			int endtimecheck;
+			String starttimeString;
+			String starttimeToString = "";
+			String endtimeString;
+			String endtimeToString = "";
+
+			JFrame window = new JFrame(
+					Timetable.table[time][day].getCourseTitle() + " " + Timetable.table[time][day].getClassRoom());
+
 			saveDate = new String[120];
 			top = 0;
-
-			JFrame window = new JFrame(e.getActionCommand());
 			window.setLayout(new BorderLayout());
-			
+
 			JPanel data = new JPanel();
 			data.setLayout(new GridLayout(6, 1));
 
@@ -59,11 +67,47 @@ public class CourseDetail implements ActionListener {
 			data.add(classRoomPanel);
 			data.add(timePanel);
 
-			for (i = 0; i < 5; i++) {	//Row direction
+			for (i = 0; i < 5; i++) { // Row direction
 				for (j = 0; j < 24; j++) {
-					currentDate = Timetable.table[j][i].getHours().getDay() + ", "
-							+ Timetable.table[j][i].getHours().getStartTime() + " ~ "
-							+ Timetable.table[j][i].getHours().getEndTime();
+					starttimeToString = "";
+					endtimeToString = "";
+
+					starttimecheck = Timetable.table[j][i].getHours().getStartTime();
+					starttimeString = Integer.toString(starttimecheck);
+					if (starttimecheck < 1000) {
+						starttimeToString += "0";
+						starttimeToString += starttimeString.charAt(0);
+					} else {
+						starttimeToString += starttimeString.substring(0, 2);
+					}
+
+					starttimeToString += ":";
+
+					if (starttimecheck < 1000) {
+						starttimeToString += starttimeString.substring(1);
+					} else {
+						starttimeToString += starttimeString.substring(2);
+					}
+
+					endtimecheck = Timetable.table[j][i].getHours().getEndTime();
+					endtimeString = Integer.toString(endtimecheck);
+					if (endtimecheck < 1000) {
+						endtimeToString += "0";
+						endtimeToString += endtimeString.charAt(0);
+					} else {
+						endtimeToString += endtimeString.substring(0, 2);
+					}
+
+					endtimeToString += ":";
+
+					if (endtimecheck < 1000) {
+						endtimeToString += endtimeString.substring(1);
+					} else {
+						endtimeToString += endtimeString.substring(2);
+					}
+
+					currentDate = Timetable.table[j][i].getHours().getDay() + ", " + starttimeToString + " ~ "
+							+ endtimeToString;
 					currentCourse = Timetable.table[j][i].getCourseTitle();
 
 					check = true;
