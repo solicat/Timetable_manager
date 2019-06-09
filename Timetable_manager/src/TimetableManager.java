@@ -79,10 +79,11 @@ public class TimetableManager extends JFrame {
 				course[i][j] = new JButton("" + Timetable.table[i][j]);
 				course[i][j].addActionListener(new CourseDetail(i, j));
 				course[i][j].setFont(timetableFont);
-				course[i][j].setBackground(SetColor.defaultColor);
 				timetable.add(course[i][j]);
 			}
 		}
+		
+		SetColor.setDefaultColor();
 
 		JPanel DAY = new JPanel(new GridLayout(1, 5));
 
@@ -154,10 +155,25 @@ public class TimetableManager extends JFrame {
 		addCourse.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		addCourse.addActionListener(new AddCourse());
 		edit.add(addCourse);
+		
+		JMenu option = new JMenu("Option");
+		JMenu theme = new JMenu("Theme");
+		JMenuItem theme0 = new JMenuItem("Pastel");
+		theme0.addActionListener(new SetColor());
+		JMenuItem theme1 = new JMenuItem("Green Blue");
+		theme1.addActionListener(new SetColor());
+		JMenuItem theme2 = new JMenuItem("Red Purple");
+		theme2.addActionListener(new SetColor());
+				
+		theme.add(theme0);
+		theme.add(theme1);
+		theme.add(theme2);
+		option.add(theme);
 
 		JMenuBar bar = new JMenuBar();
 		bar.add(file);
 		bar.add(edit);
+		bar.add(option);
 		setJMenuBar(bar);
 	}
 
