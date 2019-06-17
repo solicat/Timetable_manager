@@ -23,7 +23,7 @@ public class TimetableManager extends JFrame {
 
 	private Font timetableFont = new Font("Arial", Font.BOLD, 10);
 
-	private Timetable TT = new Timetable(); // Initialize Timetable.table
+	private Timetable TT = new Timetable(); //Initialize Timetable.table
 
 	public static JButton[][] course = new JButton[24][5];
 
@@ -82,7 +82,7 @@ public class TimetableManager extends JFrame {
 				timetable.add(course[i][j]);
 			}
 		}
-
+		
 		SetColor.setDefaultColor();
 
 		JPanel DAY = new JPanel(new GridLayout(1, 5));
@@ -104,33 +104,21 @@ public class TimetableManager extends JFrame {
 		DAY.add(Fri);
 
 		JPanel time = new JPanel(new GridLayout(24, 1));
-		JLabel timeLabel;
 
 		for (i = 0; i < 24; i++) {
 			if (i % 2 == 0) {
-				timeLabel = new JLabel((i / 2 + 1) + "A");
-				timeLabel.setHorizontalAlignment(JLabel.CENTER);
-				time.add(timeLabel);
-			} else {
-				timeLabel = new JLabel((i / 2 + 1) + "B");
-				timeLabel.setHorizontalAlignment(JLabel.CENTER);
-				time.add(timeLabel);
-			}
+				time.add(new JLabel((i / 2 + 1) + "A"));
+			} else
+				time.add(new JLabel((i / 2 + 1) + "B"));
 		}
 
 		JPanel realTime = new JPanel(new GridLayout(24, 1));
-		JLabel realTimeLabel;
 
 		for (i = 0; i < 24; i++) {
 			if (i % 2 == 0) {
-				realTimeLabel = new JLabel((i / 2 + 9) + ":00 ~ " + (i / 2 + 9) + ":30");
-				realTimeLabel.setHorizontalAlignment(JLabel.CENTER);
-				realTime.add(realTimeLabel);
-			} else {
-				realTimeLabel = new JLabel((i / 2 + 9) + ":30 ~ " + (i / 2 + 10) + ":00");
-				realTimeLabel.setHorizontalAlignment(JLabel.CENTER);
-				realTime.add(realTimeLabel);
-			}
+				realTime.add(new JLabel((i / 2 + 9) + ":00 ~ " + (i / 2 + 9) + ":30"));
+			} else
+				realTime.add(new JLabel((i / 2 + 9) + ":30 ~ " + (i / 2 + 10) + ":00"));
 		}
 
 		mainpanel.add(new JLabel(), mpConstraints[0]);
@@ -167,7 +155,7 @@ public class TimetableManager extends JFrame {
 		addCourse.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		addCourse.addActionListener(new AddCourse());
 		edit.add(addCourse);
-
+		
 		JMenu option = new JMenu("Option");
 		option.setMnemonic(KeyEvent.VK_O);
 		JMenu theme = new JMenu("Theme");
@@ -181,7 +169,7 @@ public class TimetableManager extends JFrame {
 		JMenuItem theme2 = new JMenuItem("Red Purple", KeyEvent.VK_R);
 		theme2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.SHIFT_MASK));
 		theme2.addActionListener(new SetColor());
-
+				
 		theme.add(theme0);
 		theme.add(theme1);
 		theme.add(theme2);
