@@ -155,10 +155,13 @@ public class TimetableManager extends JFrame {
 		theme1.addActionListener(new SetColor());
 		JMenuItem theme2 = new JMenuItem("Red Purple");
 		theme2.addActionListener(new SetColor());
+		JMenuItem theme3 = new JMenuItem("Candy");
+		theme3.addActionListener(new SetColor());
 				
 		theme.add(theme0);
 		theme.add(theme1);
 		theme.add(theme2);
+		theme.add(theme3);
 		option.add(theme);
 
 		JMenuBar bar = new JMenuBar();
