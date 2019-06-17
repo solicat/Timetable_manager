@@ -3,7 +3,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,7 +47,7 @@ public class CourseDetail implements ActionListener {
 			window.setLayout(new BorderLayout());
 
 			JPanel data = new JPanel();
-			data.setLayout(new GridLayout(6, 1));
+			data.setLayout(new GridLayout(7, 1));
 
 			JPanel courseTitlePanel = new JPanel(new FlowLayout());
 			JLabel courseTitleLabel = new JLabel("Course title: ");
@@ -63,11 +65,21 @@ public class CourseDetail implements ActionListener {
 			JLabel timeLabel = new JLabel("Time: ");
 			timePanel.add(timeLabel);
 
+			JPanel buttonPanel = new JPanel(new FlowLayout());
+			JButton delete = new JButton("Delete");
+			delete.setMnemonic(KeyEvent.VK_D);
+			delete.addActionListener(new DeleteCourse(time, day));
+			JButton deleteAll = new JButton("Delete All");
+			deleteAll.setMnemonic(KeyEvent.VK_A);
+			deleteAll.addActionListener(new DeleteCourse(time, day));
+			buttonPanel.add(delete);
+			buttonPanel.add(deleteAll);
+
 			data.add(courseTitlePanel);
 			data.add(classRoomPanel);
 			data.add(timePanel);
 
-			for (i = 0; i < 5; i++) { // Row direction
+			for (i = 0; i < 5; i++) { // Column direction
 				for (j = 0; j < 24; j++) {
 					starttimeToString = "";
 					endtimeToString = "";
@@ -119,7 +131,7 @@ public class CourseDetail implements ActionListener {
 						}
 					}
 
-					if (!saveDate.equals(currentDate) && currentCourse.equals(course) && check) {
+					if (currentCourse.equals(course) && check) {
 						JPanel dayPanel = new JPanel(new FlowLayout());
 						JLabel dayLabel = new JLabel(currentDate);
 						dayPanel.add(dayLabel);
@@ -129,9 +141,14 @@ public class CourseDetail implements ActionListener {
 				}
 			}
 
+			data.add(buttonPanel);
+
 			window.add(data, BorderLayout.CENTER);
-			window.setSize(500, 200);
+			window.setSize(500, 300);
 			window.setVisible(true);
+		} else {
+			AddCourseWindow temp = new AddCourseWindow();
+			temp.setVisible(true);
 		}
 	}
 

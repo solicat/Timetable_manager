@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class TimetableManager extends JFrame {
 
@@ -20,7 +23,7 @@ public class TimetableManager extends JFrame {
 
 	private Font timetableFont = new Font("Arial", Font.BOLD, 10);
 
-	private Timetable TT = new Timetable(); //Initialize Timetable.table
+	private Timetable TT = new Timetable(); // Initialize Timetable.table
 
 	public static JButton[][] course = new JButton[24][5];
 
@@ -79,7 +82,7 @@ public class TimetableManager extends JFrame {
 				timetable.add(course[i][j]);
 			}
 		}
-		
+
 		SetColor.setDefaultColor();
 
 		JPanel DAY = new JPanel(new GridLayout(1, 5));
@@ -101,21 +104,33 @@ public class TimetableManager extends JFrame {
 		DAY.add(Fri);
 
 		JPanel time = new JPanel(new GridLayout(24, 1));
+		JLabel timeLabel;
 
 		for (i = 0; i < 24; i++) {
 			if (i % 2 == 0) {
-				time.add(new JLabel((i / 2 + 1) + "A"));
-			} else
-				time.add(new JLabel((i / 2 + 1) + "B"));
+				timeLabel = new JLabel((i / 2 + 1) + "A");
+				timeLabel.setHorizontalAlignment(JLabel.CENTER);
+				time.add(timeLabel);
+			} else {
+				timeLabel = new JLabel((i / 2 + 1) + "B");
+				timeLabel.setHorizontalAlignment(JLabel.CENTER);
+				time.add(timeLabel);
+			}
 		}
 
 		JPanel realTime = new JPanel(new GridLayout(24, 1));
+		JLabel realTimeLabel;
 
 		for (i = 0; i < 24; i++) {
 			if (i % 2 == 0) {
-				realTime.add(new JLabel((i / 2 + 9) + ":00 ~ " + (i / 2 + 9) + ":30"));
-			} else
-				realTime.add(new JLabel((i / 2 + 9) + ":30 ~ " + (i / 2 + 10) + ":00"));
+				realTimeLabel = new JLabel((i / 2 + 9) + ":00 ~ " + (i / 2 + 9) + ":30");
+				realTimeLabel.setHorizontalAlignment(JLabel.CENTER);
+				realTime.add(realTimeLabel);
+			} else {
+				realTimeLabel = new JLabel((i / 2 + 9) + ":30 ~ " + (i / 2 + 10) + ":00");
+				realTimeLabel.setHorizontalAlignment(JLabel.CENTER);
+				realTime.add(realTimeLabel);
+			}
 		}
 
 		mainpanel.add(new JLabel(), mpConstraints[0]);
@@ -130,32 +145,44 @@ public class TimetableManager extends JFrame {
 
 		// Menu bar
 		JMenu file = new JMenu("File");
-		JMenuItem New = new JMenuItem("New");
+		file.setMnemonic(KeyEvent.VK_F);
+		JMenuItem New = new JMenuItem("New", KeyEvent.VK_N);
+		New.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		New.addActionListener(new File());
 		file.add(New);
 
-		JMenuItem Open = new JMenuItem("Open");
+		JMenuItem Open = new JMenuItem("Open", KeyEvent.VK_O);
+		Open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		Open.addActionListener(new File());
 		file.add(Open);
 
-		JMenuItem Save = new JMenuItem("Save");
+		JMenuItem Save = new JMenuItem("Save", KeyEvent.VK_S);
+		Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		Save.addActionListener(new File());
 		file.add(Save);
 
 		JMenu edit = new JMenu("Edit");
-		JMenuItem addCourse = new JMenuItem("Add Course");
+		edit.setMnemonic(KeyEvent.VK_E);
+		JMenuItem addCourse = new JMenuItem("Add Course", KeyEvent.VK_D);
+		addCourse.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		addCourse.addActionListener(new AddCourse());
 		edit.add(addCourse);
-		
+
 		JMenu option = new JMenu("Option");
+		option.setMnemonic(KeyEvent.VK_O);
 		JMenu theme = new JMenu("Theme");
-		JMenuItem theme0 = new JMenuItem("Pastel");
+		theme.setMnemonic(KeyEvent.VK_T);
+		JMenuItem theme0 = new JMenuItem("Pastel", KeyEvent.VK_P);
+		theme0.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
 		theme0.addActionListener(new SetColor());
-		JMenuItem theme1 = new JMenuItem("Green Blue");
+		JMenuItem theme1 = new JMenuItem("Green Blue", KeyEvent.VK_G);
+		theme1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
 		theme1.addActionListener(new SetColor());
-		JMenuItem theme2 = new JMenuItem("Red Purple");
+		JMenuItem theme2 = new JMenuItem("Red Purple", KeyEvent.VK_R);
+		theme2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.SHIFT_MASK));
 		theme2.addActionListener(new SetColor());
-		JMenuItem theme3 = new JMenuItem("Candy");
+		JMenuItem theme3 = new JMenuItem("Candy", KeyEvent.VK_C);
+		theme3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.SHIFT_MASK));
 		theme3.addActionListener(new SetColor());
 				
 		theme.add(theme0);
