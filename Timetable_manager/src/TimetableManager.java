@@ -181,10 +181,14 @@ public class TimetableManager extends JFrame {
 		JMenuItem theme2 = new JMenuItem("Red Purple", KeyEvent.VK_R);
 		theme2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.SHIFT_MASK));
 		theme2.addActionListener(new SetColor());
-
+		JMenuItem theme3 = new JMenuItem("Candy", KeyEvent.VK_C);
+		theme3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.SHIFT_MASK));
+		theme3.addActionListener(new SetColor());
+				
 		theme.add(theme0);
 		theme.add(theme1);
 		theme.add(theme2);
+		theme.add(theme3);
 		option.add(theme);
 
 		JMenuBar bar = new JMenuBar();
