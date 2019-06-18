@@ -13,6 +13,7 @@ public class Timetable {
 		}
 	}
 
+	// For test
 	public static void printTimetable() {
 		int i, j;
 
@@ -38,11 +39,11 @@ public class Timetable {
 		int startTime;
 		int endTime;
 		int hours;
-		
-		if(A.getCourseTitle().equals(""))
+
+		if (A.getCourseTitle().equals(""))
 			return 1;
-		
-		if(A.getClassRoom().equals(""))
+
+		if (A.getClassRoom().equals(""))
 			return 2;
 
 		if (A.getHours().getDay().equals("Mon"))
@@ -61,6 +62,7 @@ public class Timetable {
 		startTime = A.getHours().getStartTime();
 		endTime = A.getHours().getEndTime();
 
+		// Check hour
 		if (A.getHours().getStartTime() < 900 && A.getHours().getStartTime() >= 0)
 			startTime = 900;
 		else if (A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
@@ -71,11 +73,13 @@ public class Timetable {
 		else if (A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
 			return 5;
 
+		// Check minute
 		if (A.getHours().getStartTime() % 100 > 59)
 			return 4;
 		if (A.getHours().getEndTime() % 100 > 59)
 			return 5;
 
+		// Check time order
 		if (startTime > endTime)
 			return 6;
 
@@ -89,6 +93,7 @@ public class Timetable {
 		else
 			hours = (((endTime - startTime) / 100) * 2) + 1;
 
+		// Check overlap
 		if (AddCourseWindow.overlapCheckActivate == true) {
 			for (len = 0; len < hours; len++) {
 				if (!(table[i + len][j].getCourseTitle().equals("") && table[i + len][j].getClassRoom().equals("")))
@@ -100,10 +105,6 @@ public class Timetable {
 			table[i + len][j] = A;
 
 		return 0;
-	}
-
-	public static Course[][] getTimetable() {
-		return table;
 	}
 
 }
