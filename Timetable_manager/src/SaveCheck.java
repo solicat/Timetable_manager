@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,11 +11,13 @@ import javax.swing.JPanel;
 
 public class SaveCheck extends JFrame implements ActionListener {
 
-	private String state;
+	public static String state;
+	public static String command;
 
 	public SaveCheck(String state) {
-		this.state = state;
+		SaveCheck.state = state;
 
+		setTitle("Save?");
 		setLayout(new BorderLayout());
 
 		JLabel save = new JLabel("Do you want to save?");
@@ -24,10 +27,13 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 		JPanel checkButton = new JPanel(new FlowLayout());
 		JButton yes = new JButton("YES");
+		yes.setMnemonic(KeyEvent.VK_Y);
 		yes.addActionListener(this);
 		JButton no = new JButton("NO");
+		no.setMnemonic(KeyEvent.VK_N);
 		no.addActionListener(this);
 		JButton cancel = new JButton("CANCEL");
+		cancel.setMnemonic(KeyEvent.VK_C);
 		cancel.addActionListener(this);
 
 		checkButton.add(yes);
@@ -41,14 +47,16 @@ public class SaveCheck extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-
+		command = e.getActionCommand();
 		if (command.equals("YES")) {
-			FileIO.doFileIO("Save");
-			FileIO.doFileIO(state);
+			FileNameWindow temp = new FileNameWindow("Save");
 			dispose();
 		} else if (command.equals("NO")) {
-			FileIO.doFileIO(state);
+			if (state.equals("New")) {
+				FileIO.doFileIO(state);
+			} else {
+				FileNameWindow temp = new FileNameWindow(state); // Open
+			}
 			dispose();
 		} else if (command.equals("CANCEL")) {
 			dispose();

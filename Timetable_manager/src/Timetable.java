@@ -13,6 +13,7 @@ public class Timetable {
 		}
 	}
 
+	// For test
 	public static void printTimetable() {
 		int i, j;
 
@@ -33,11 +34,17 @@ public class Timetable {
 
 	}
 
-	public static boolean setTimetable(Course A) {
+	public static int setTimetable(Course A) {
 		int i, j, len;
 		int startTime;
 		int endTime;
 		int hours;
+
+		if (A.getCourseTitle().equals(""))
+			return 1;
+
+		if (A.getClassRoom().equals(""))
+			return 2;
 
 		if (A.getHours().getDay().equals("Mon"))
 			j = 0;
@@ -50,20 +57,31 @@ public class Timetable {
 		else if (A.getHours().getDay().equals("Fri"))
 			j = 4;
 		else
-			return false;
+			return 3;
 
 		startTime = A.getHours().getStartTime();
 		endTime = A.getHours().getEndTime();
 
-		if (A.getHours().getStartTime() < 900)
+		// Check hour
+		if (A.getHours().getStartTime() < 900 && A.getHours().getStartTime() >= 0)
 			startTime = 900;
-		if (A.getHours().getEndTime() > 2100)
-			endTime = 2100;
+		else if (A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
+			return 4;
 
+		if (A.getHours().getEndTime() > 2100 && A.getHours().getEndTime() < 2400)
+			endTime = 2100;
+		else if (A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
+			return 5;
+
+		// Check minute
 		if (A.getHours().getStartTime() % 100 > 59)
-			return false;
+			return 4;
 		if (A.getHours().getEndTime() % 100 > 59)
-			return false;
+			return 5;
+
+		// Check time order
+		if (startTime > endTime)
+			return 6;
 
 		i = (startTime / 100 - 9) * 2;
 
@@ -75,14 +93,18 @@ public class Timetable {
 		else
 			hours = (((endTime - startTime) / 100) * 2) + 1;
 
+		// Check overlap
+		if (AddCourseWindow.overlapCheckActivate == true) {
+			for (len = 0; len < hours; len++) {
+				if (!(table[i + len][j].getCourseTitle().equals("") && table[i + len][j].getClassRoom().equals("")))
+					return 6;
+			}
+		}
+
 		for (len = 0; len < hours; len++)
 			table[i + len][j] = A;
 
-		return true;
-	}
-
-	public static Course[][] getTimetable() {
-		return table;
+		return 0;
 	}
 
 }

@@ -2,7 +2,7 @@
 import java.io.Serializable;
 import java.util.StringTokenizer;
 
-public class Course implements Serializable{
+public class Course implements Serializable {
 	private String courseTitle;
 	private String classRoom;
 	private TimeAndDay hours;
@@ -22,11 +22,13 @@ public class Course implements Serializable{
 	public String toString() {
 		StringTokenizer courseToken = new StringTokenizer(courseTitle);
 		String title = "";
-		
-		while(courseToken.hasMoreTokens()) {
+
+		// Make courseTitle's initial
+		while (courseToken.hasMoreTokens()) {
 			title += courseToken.nextToken().charAt(0);
 		}
-		
+
+		// Multiple line text on button
 		return "<html>" + title + "<br />" + classRoom + "</html>";
 	}
 

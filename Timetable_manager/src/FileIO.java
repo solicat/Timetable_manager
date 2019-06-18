@@ -7,12 +7,13 @@ import java.io.ObjectOutputStream;
 
 public class FileIO {
 
+	public static String file;
+
 	public static void doFileIO(String state) {
 		int i, j;
 
 		if (state.equals("New")) {
 			Timetable temp = new Timetable(); // reset Timetable.table
-			Timetable.table = Timetable.getTimetable();
 
 			for (i = 0; i < 24; i++) {
 				for (j = 0; j < 5; j++) {
@@ -21,16 +22,19 @@ public class FileIO {
 			}
 
 			TimetableManager.saveState = true;
+
+			SetColor.setDefaultColor();
 		}
 
 		else if (state.equals("Open")) {
+
 			FileIO.doFileIO("New");
 
 			ObjectInputStream inputStream;
 			Course courseTemp;
 
 			try {
-				inputStream = new ObjectInputStream(new FileInputStream("test"));
+				inputStream = new ObjectInputStream(new FileInputStream(file));
 				// Read file
 				for (i = 0; i < 24; i++) {
 					for (j = 0; j < 5; j++) {
@@ -50,6 +54,8 @@ public class FileIO {
 
 				TimetableManager.saveState = true;
 
+				SetColor.setButtonColor();
+
 			} catch (FileNotFoundException e1) {
 				System.out.println("FileNotFoundException");
 			} catch (ClassNotFoundException e1) {
@@ -57,13 +63,14 @@ public class FileIO {
 			} catch (IOException e1) {
 				System.out.println("IOException");
 			}
-		}
 
-		else if (state.equals("Save")) {
+		} else if (state.equals("Save")) {
+
 			ObjectOutputStream outputStream;
 			Course temp;
+
 			try {
-				outputStream = new ObjectOutputStream(new FileOutputStream("test"));
+				outputStream = new ObjectOutputStream(new FileOutputStream(file));
 
 				for (i = 0; i < 24; i++) {
 					for (j = 0; j < 5; j++) {
