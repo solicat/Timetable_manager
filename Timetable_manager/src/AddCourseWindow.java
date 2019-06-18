@@ -17,6 +17,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 	private JTextField day;
 	private JTextField startTime;
 	private JTextField endTime;
+	public static boolean overlapCheckActivate = false;
 
 	public AddCourseWindow() {
 		setTitle("Add Course");
@@ -89,11 +90,15 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
 
+			courseTitle.setBackground(SetColor.textfieldColor);
+			classRoom.setBackground(SetColor.textfieldColor);
 			day.setBackground(SetColor.textfieldColor);
 			startTime.setBackground(SetColor.textfieldColor);
 			endTime.setBackground(SetColor.textfieldColor);
 
+			overlapCheckActivate = true;
 			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
+			overlapCheckActivate = false;
 
 			if (check == 0) {
 				for (i = 0; i < 24; i++) {
@@ -104,10 +109,17 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 				}
 				TimetableManager.saveState = false;
 			} else if (check == 1) {
-				day.setBackground(SetColor.warningColor);
+				courseTitle.setBackground(SetColor.warningColor);
 			} else if (check == 2) {
-				startTime.setBackground(SetColor.warningColor);
+				classRoom.setBackground(SetColor.warningColor);
 			} else if (check == 3) {
+				day.setBackground(SetColor.warningColor);
+			} else if (check == 4) {
+				startTime.setBackground(SetColor.warningColor);
+			} else if (check == 5) {
+				endTime.setBackground(SetColor.warningColor);
+			} else if (check == 6) {
+				startTime.setBackground(SetColor.warningColor);
 				endTime.setBackground(SetColor.warningColor);
 			}
 

@@ -38,6 +38,12 @@ public class Timetable {
 		int startTime;
 		int endTime;
 		int hours;
+		
+		if(A.getCourseTitle().equals(""))
+			return 1;
+		
+		if(A.getClassRoom().equals(""))
+			return 2;
 
 		if (A.getHours().getDay().equals("Mon"))
 			j = 0;
@@ -50,29 +56,28 @@ public class Timetable {
 		else if (A.getHours().getDay().equals("Fri"))
 			j = 4;
 		else
-			return 1;
+			return 3;
 
 		startTime = A.getHours().getStartTime();
 		endTime = A.getHours().getEndTime();
 
 		if (A.getHours().getStartTime() < 900 && A.getHours().getStartTime() >= 0)
 			startTime = 900;
-		else if(A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
-			return 2;
-		
+		else if (A.getHours().getStartTime() < 0 || A.getHours().getStartTime() > 2400)
+			return 4;
+
 		if (A.getHours().getEndTime() > 2100 && A.getHours().getEndTime() < 2400)
 			endTime = 2100;
-		else if(A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
-			return 3;
+		else if (A.getHours().getEndTime() < 0 || A.getHours().getEndTime() > 2400)
+			return 5;
 
 		if (A.getHours().getStartTime() % 100 > 59)
-			return 2;
+			return 4;
 		if (A.getHours().getEndTime() % 100 > 59)
-			return 3;
-		
-		if(startTime > endTime)
-			return 2;
+			return 5;
 
+		if (startTime > endTime)
+			return 6;
 
 		i = (startTime / 100 - 9) * 2;
 
@@ -83,6 +88,13 @@ public class Timetable {
 			hours = ((endTime - startTime) / 100) * 2;
 		else
 			hours = (((endTime - startTime) / 100) * 2) + 1;
+
+		if (AddCourseWindow.overlapCheckActivate == true) {
+			for (len = 0; len < hours; len++) {
+				if (!(table[i + len][j].getCourseTitle().equals("") && table[i + len][j].getClassRoom().equals("")))
+					return 6;
+			}
+		}
 
 		for (len = 0; len < hours; len++)
 			table[i + len][j] = A;
