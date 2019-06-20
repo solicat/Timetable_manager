@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -82,20 +83,26 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 		int et;
 		int i, j;
 		int check;
-
+		int dayj=-1;
+		int hours=0;
+		
 		if (e.getActionCommand().equals("Add")) {
 			ct = courseTitle.getText();
 			cr = classRoom.getText();
 			sday = day.getText();
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
-
+			
+			
+			
 			courseTitle.setBackground(SetColor.textfieldColor);
 			classRoom.setBackground(SetColor.textfieldColor);
 			day.setBackground(SetColor.textfieldColor);
 			startTime.setBackground(SetColor.textfieldColor);
 			endTime.setBackground(SetColor.textfieldColor);
-
+			
+			
+			
 			overlapCheckActivate = true;
 			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
 			overlapCheckActivate = false;
@@ -119,14 +126,50 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 			} else if (check == 5) {
 				endTime.setBackground(SetColor.warningColor);
 			} else if (check == 6) {
+				
+				if (sday.equals("Mon"))
+					dayj = 0;
+				else if (sday.equals("Tue"))
+					dayj = 1;
+				else if (sday.equals("Wed"))
+					dayj = 2;
+				else if (sday.equals("Thu"))
+					dayj = 3;
+				else if (sday.equals("Fri"))
+					dayj = 4;
+				
+				i = (st / 100 - 9) * 2;
+
+				if (st % 100 >= 30)
+					i += 1;
+
+				if ((et - st) % 100 == 0)
+					 hours = ((et - st) / 100) * 2;
+				else
+					hours = (((et - st) / 100) * 2) + 1;
+				SetColor.setDefaultColor();
+				SetColor.setButtonColor();
+				
+					for(j=0; j<hours; j++)
+					{
+						TimetableManager.course[i+j][dayj].setBackground(SetColor.warningColor);
+					}
+				
+				
 				startTime.setBackground(SetColor.warningColor);
 				endTime.setBackground(SetColor.warningColor);
+				
 			}
-
-			SetColor.setButtonColor();
+			
+			if (check != 6) {
+	            SetColor.setDefaultColor();
+	            SetColor.setButtonColor();
+	         }
+			//TimetableManager.course[0][dayj].setBackground(SetColor.warningColor);
 			// Timetable.printTimetable(); //For test
 		}
 
 	}
+	
 
 }
