@@ -1,10 +1,10 @@
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +23,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 	public AddCourseWindow() {
 		setTitle("Add Course");
 		setSize(500, 300);
+		addWindowListener(new CheckOnExit());
 
 		JPanel inputpanel = new JPanel(new GridLayout(6, 1));
 
@@ -83,26 +84,22 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 		int et;
 		int i, j;
 		int check;
-		int dayj=-1;
-		int hours=0;
-		
+		int dayj = -1;
+		int hours = 0;
+
 		if (e.getActionCommand().equals("Add")) {
 			ct = courseTitle.getText();
 			cr = classRoom.getText();
 			sday = day.getText();
 			st = Integer.parseInt(startTime.getText());
 			et = Integer.parseInt(endTime.getText());
-			
-			
-			
+
 			courseTitle.setBackground(SetColor.textfieldColor);
 			classRoom.setBackground(SetColor.textfieldColor);
 			day.setBackground(SetColor.textfieldColor);
 			startTime.setBackground(SetColor.textfieldColor);
 			endTime.setBackground(SetColor.textfieldColor);
-			
-			
-			
+
 			overlapCheckActivate = true;
 			check = Timetable.setTimetable(new Course(ct, cr, sday, st, et));
 			overlapCheckActivate = false;
@@ -126,7 +123,7 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 			} else if (check == 5) {
 				endTime.setBackground(SetColor.warningColor);
 			} else if (check == 6) {
-				
+
 				if (sday.equals("Mon"))
 					dayj = 0;
 				else if (sday.equals("Tue"))
@@ -137,39 +134,45 @@ public class AddCourseWindow extends JFrame implements ActionListener {
 					dayj = 3;
 				else if (sday.equals("Fri"))
 					dayj = 4;
-				
+
 				i = (st / 100 - 9) * 2;
 
 				if (st % 100 >= 30)
 					i += 1;
 
 				if ((et - st) % 100 == 0)
-					 hours = ((et - st) / 100) * 2;
+					hours = ((et - st) / 100) * 2;
 				else
 					hours = (((et - st) / 100) * 2) + 1;
 				SetColor.setDefaultColor();
 				SetColor.setButtonColor();
-				
-					for(j=0; j<hours; j++)
-					{
-						TimetableManager.course[i+j][dayj].setBackground(SetColor.warningColor);
-					}
-				
-				
+
+				for (j = 0; j < hours; j++) {
+					TimetableManager.course[i + j][dayj].setBackground(SetColor.warningColor);
+				}
+
 				startTime.setBackground(SetColor.warningColor);
 				endTime.setBackground(SetColor.warningColor);
-				
+
 			}
-			
+
 			if (check != 6) {
-	            SetColor.setDefaultColor();
-	            SetColor.setButtonColor();
-	         }
-			//TimetableManager.course[0][dayj].setBackground(SetColor.warningColor);
+				SetColor.setDefaultColor();
+				SetColor.setButtonColor();
+			}
 			// Timetable.printTimetable(); //For test
 		}
 
 	}
-	
+
+	private class CheckOnExit extends WindowAdapter {
+
+		@Override
+		public void windowClosing(WindowEvent arg0) {
+			SetColor.setDefaultColor();
+			SetColor.setButtonColor();
+		}
+
+	}
 
 }
