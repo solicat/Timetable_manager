@@ -57,7 +57,7 @@ public class FileNameWindow implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		File temp = new File(fileName.getText());
-		if (e.getActionCommand().equals("Open")) {
+		if (e.getActionCommand().equals("Open")) { // File open case
 			if (temp.exists()) {
 				FileIO.file = temp.getName();
 				FileIO.doFileIO("Open");
@@ -67,7 +67,7 @@ public class FileNameWindow implements ActionListener {
 				existsState.setText("No File!");
 			}
 		}
-		if (e.getActionCommand().equals("Save")) {
+		if (e.getActionCommand().equals("Save")) { // File save case
 			if (temp.getName().equals("")) {
 				fileName.setBackground(SetColor.warningColor);
 			} else if (!temp.exists()) {
@@ -75,11 +75,11 @@ public class FileNameWindow implements ActionListener {
 				FileIO.doFileIO("Save");
 				window.dispose();
 
-				if (SaveCheck.command.equals("YES")) {
+				if (SaveCheck.command.equals("YES")) {// If event is from OverwriteCheck
 					SaveCheck.command = "";
-					if (!SaveCheck.state.equals("New")) {
+					if (!SaveCheck.state.equals("New")) {// If OverwriteCheck event is from File open
 						FileNameWindow windowtemp = new FileNameWindow(SaveCheck.state);
-					} else {
+					} else {// If OverwriteCheck event is from new file
 						FileIO.doFileIO("New");
 					}
 				}

@@ -14,7 +14,6 @@ public class FileIO {
 
 		if (state.equals("New")) {
 			Timetable temp = new Timetable(); // reset Timetable.table
-			Timetable.table = Timetable.getTimetable();
 
 			for (i = 0; i < 24; i++) {
 				for (j = 0; j < 5; j++) {
@@ -23,7 +22,7 @@ public class FileIO {
 			}
 
 			TimetableManager.saveState = true;
-			
+
 			SetColor.setDefaultColor();
 		}
 
