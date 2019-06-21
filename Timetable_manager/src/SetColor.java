@@ -44,7 +44,7 @@ public class SetColor implements ActionListener {
 					}
 
 					else
-						TimetableManager.course[i][j].setBackground(color[theme][k]);
+						TimetableManager.course[i][j].setBackground(color[theme][k % color[theme].length]);
 				}
 
 				check = true;
